@@ -12,6 +12,7 @@ export default {
     return Jwt.accessToken(email, password)
     .then((response) => {
       this.token = response.data.token
+      localStorage.setObject('user', response.data)
     })
   }
 }
