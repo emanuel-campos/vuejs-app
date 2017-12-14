@@ -1,3 +1,3 @@
 export default {
-  baseUrl: 'https://staging.api.meuprospere.com.br/v1/'
+  apiUrl: 'https://staging.api.meuprospere.com.br/v1/'
 }

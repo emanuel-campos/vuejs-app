@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueResource from 'vue-resource'
-import config from './config'
+import JwtToken from '../services/jwt-token'
 
 Vue.use(Vuex)
 Vue.use(VueResource)
@@ -10,10 +10,7 @@ export default new Vuex.Store({
   state: {},
   actions: {
     login (context, {email, password}) {
-      Vue.http.post(config.baseUrl + '/auth', { email, password })
-        .then((response) => {
-          console.log(response.data.token)
-        })
+      JwtToken.accessToken(email, password)
     }
   }
 })
