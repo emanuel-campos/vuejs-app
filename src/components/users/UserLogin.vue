@@ -39,7 +39,9 @@ export default {
     }
   },
   methods: {
-    login () {}
+    login () {
+      this.$store.dispatch('login', this.user)
+    }
   }
 }
 </script>
