@@ -24,7 +24,10 @@
 						</div>
 					</div>
 					<div class="form--buttons left">
-						<button class="form--button">Fazer Login</button>
+						<button class="form--button">
+							<i v-show="lazyLoading" class="fa fa-spinner form--button--loading"></i> 
+							Fazer Login
+						</button>
 						<a class="form--button right text paddingless">Não é cadastrado?</a>
 					</div>
 				</form>
@@ -44,18 +47,21 @@ export default {
       error: {
         status: false,
         message: ''
-      }
+      },
+      lazyLoading: false
     }
   },
   methods: {
     login () {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          this.lazyLoading = true
           this.$store.dispatch('login', this.user)
             .then((response) => {
               this.$router.push({name: 'contact-list'})
             })
             .catch((responseError) => {
+              this.lazyLoading = false
               this.error.status = true
               this.error.message = 'Login ou senha inválidos'
             })

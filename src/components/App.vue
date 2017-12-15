@@ -117,6 +117,19 @@ export default {
 		}
 	}
 
+	.form--button--loading{
+		animation: icon-spin 2s infinite linear;
+	}
+
+	@keyframes icon-spin{
+		from{
+		    transform: rotate(0deg);
+		}
+		to{
+		    transform: rotate(359deg)
+		}
+	}
+
 	.form--input--warning{
 	    color: #c33e30;
 	    font-size: 14px;
