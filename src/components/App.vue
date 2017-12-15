@@ -1,8 +1,20 @@
 <template>
-  <section :class="[appClass, appRouteClass]">
-  	<nav class="app--sidebar">
-	  	<router-link :to="{name: 'contact-list'}">Lista de Contatos</router-link>
-	  	<router-link :to="{name: 'contact-new'}">Adicionar Contato</router-link>
+  <section :class="['app', appRouteClass]">
+  	<nav class="app--sidebar" v-if="isAuth">
+  		<span class="app--sidebar--user--info">
+	  		{{ authUser.name }} 
+	  		<router-link :to="{name: 'user-logout'}">
+	  			<i class="fa fa-sign-out"></i> Sair
+  			</router-link>
+  		</span>
+	  	<router-link class="form--button block" :to="{name: 'contact-list'}">
+	  		<i class="fa fa-list"></i>
+	  		Lista de Contatos
+  		</router-link>
+	  	<router-link class="form--button block" :to="{name: 'contact-new'}">
+	  		<i class="fa fa-plus"></i>
+	  		Adicionar Contato
+  		</router-link>
   	</nav>
     <router-view></router-view>
   </section>
@@ -12,8 +24,11 @@
 export default {
   name: 'app',
   computed: {
-    appClass () {
-      return 'app'
+    isAuth () {
+      return this.$store.state.auth.check
+    },
+    authUser () {
+      return this.$store.state.auth.user
     },
     appRouteClass () {
       return this.$route.meta.class
@@ -25,6 +40,10 @@ export default {
 <style lang="scss">
 	$defaultFont: 400 14px Open Sans, Helvetica Neue,Helvetica,Arial,sans-serif;
 
+	*{
+		box-sizing: border-box;
+	}
+
 	body{
 		background: #ecf0f1;
 		padding: 0;
@@ -32,7 +51,7 @@ export default {
 	}
 
 	/* secao geral para todas as paginas da aplicacao */
-	.app{
+	.app {
 		color: #000;
 		font: $defaultFont;
 		border-left: 240px solid #fff;
@@ -42,11 +61,33 @@ export default {
 			top: 0;
 			left: 0;
 			width: 240px;
+			padding: 20px;
+			background-color: #fff;
+			min-height: 100%;
+
+			a{
+				color: #000;
+			}
+
+			& + .app--main{
+				padding: 20px; 
+			}
+
+			.app--sidebar--user--info{
+				display: block;
+				margin-bottom: 20px;
+			}
+
+			.form--button{
+				color: #fff;
+			    margin-bottom: 20px;
+			}
 		}
 
 		.app--header{
 			background-color: #fff;
     		color: #000;
+    		margin: -20px -20px 20px;
 
 			.app--header--title{
 				font-size: 22.4px;
@@ -56,6 +97,13 @@ export default {
 			    padding: 20px;
 			    margin: 0;
 			}
+		}
+
+		.app--main{
+			margin: 0 auto;
+		    min-height: 100%;
+		    position: relative;
+		    vertical-align: top;
 		}
 	}
 	/* caixas que separam o conteudo em secoes */
@@ -72,7 +120,7 @@ export default {
 		    overflow: hidden;
 		    padding: 10px 20px;
 
-		    .icon{
+		    .icon {
 		    	margin-right: 10px;
 		    }
 		}
@@ -116,6 +164,7 @@ export default {
 	    text-align: center;
 	    transition: background-color .1s,opacity .1s;
 	    vertical-align: middle;
+	    text-decoration: none;
 
 	    /* classes para alinhamento dos botoes */
 	    &.right{
@@ -133,9 +182,20 @@ export default {
 		    border-color: transparent;
 	    }
 
+	    &.block{
+	    	display: block;
+	    	width: 100%;
+	    }
+
 	    &.paddingless{
 	    	padding-left: 0;
 	    	padding-right: 0;
+	    }
+
+	    /* estilo para hover e active status */
+	    &:hover,
+	    &:active{
+	    	background: #563dd2;
 	    }
 	}
 

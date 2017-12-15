@@ -1,10 +1,14 @@
 <template>
-  <div>
-  	Lista de Contatos
-  	<ul>
-  		<li v-for="contact in contacts">{{ contact.name }}</li>
-  	</ul>
-  </div>
+	<main class="app--main">
+		<section class="contacts contacts--new">
+			<header class="app--header">
+				<h2 class="app--header--title">Lista de Contatos</h2>
+			</header>
+			<ul>
+		  		<li v-for="contact in contacts">{{ contact.name }}</li>
+		  	</ul>
+		</section>
+	</main>
 </template>
 
 <script>
