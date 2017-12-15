@@ -1,14 +1,24 @@
 <template>
-  <div>
-  	<router-link :to="{name: 'contact-list'}">Lista de Contatos</router-link>
-  	<router-link :to="{name: 'contact-new'}">Adicionar Contato</router-link>
+  <section :class="[appClass, appRouteClass]">
+  	<nav class="app--sidebar">
+	  	<router-link :to="{name: 'contact-list'}">Lista de Contatos</router-link>
+	  	<router-link :to="{name: 'contact-new'}">Adicionar Contato</router-link>
+  	</nav>
     <router-view></router-view>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  computed: {
+    appClass () {
+      return 'app'
+    },
+    appRouteClass () {
+      return this.$route.meta.class
+    }
+  }
 }
 </script>
 
@@ -25,8 +35,29 @@ export default {
 	.app{
 		color: #000;
 		font: $defaultFont;
-	}
+		border-left: 240px solid #fff;
 
+		.app--sidebar{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 240px;
+		}
+
+		.app--header{
+			background-color: #fff;
+    		color: #000;
+
+			.app--header--title{
+				font-size: 22.4px;
+			    font-weight: 400;
+			    display: inline-block;
+			    line-height: 1;
+			    padding: 20px;
+			    margin: 0;
+			}
+		}
+	}
 	/* caixas que separam o conteudo em secoes */
 	.widget {
 		background-color: #fff;

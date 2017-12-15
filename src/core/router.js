@@ -11,17 +11,26 @@ const router = new VueRouter({
     {
       name: 'user-login',
       path: '/users/login',
-      component: UserLoginComponent
+      component: UserLoginComponent,
+      meta: {
+        class: 'login'
+      }
     },
     {
       name: 'contact-list',
       path: '/contacts',
-      component: ContactListComponent
+      component: ContactListComponent,
+      meta: {
+        class: 'contacts'
+      }
     },
     {
       name: 'contact-new',
       path: '/contacts/new',
-      component: ContactNewComponent
+      component: ContactNewComponent,
+      meta: {
+        class: 'contacts'
+      }
     }
   ]
 })
