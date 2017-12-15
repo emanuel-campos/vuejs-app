@@ -16,6 +16,6 @@ Vue.http.interceptors.push((request, next) => {
 
 export class Jwt {
   static accessToken (email, password) {
-    return Vue.http.post(config.apiUrl + '/auth', { email, password })
+    return Vue.http.post(config.getApiUrl('/auth'), { email, password })
   }
 }
