@@ -9,14 +9,17 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
     {
+      name: 'user-login',
       path: '/users/login',
       component: UserLoginComponent
     },
     {
+      name: 'contact-list',
       path: '/contacts',
       component: ContactListComponent
     },
     {
+      name: 'contact-new',
       path: '/contacts/new',
       component: ContactNewComponent
     }

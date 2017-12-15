@@ -1,5 +1,7 @@
 <template>
   <div>
+  	<router-link :to="{name: 'contact-list'}">Lista de Contatos</router-link>
+  	<router-link :to="{name: 'contact-new'}">Adicionar Contato</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -19,13 +21,13 @@ export default {
 		margin: 0;
 	}
 
-	/*secao geral para todas as paginas da aplicacao*/
+	/* secao geral para todas as paginas da aplicacao */
 	.app{
 		color: #000;
 		font: $defaultFont;
 	}
 
-	/*caixas que separam o conteudo em secoes*/
+	/* caixas que separam o conteudo em secoes */
 	.widget {
 		background-color: #fff;
 	    border-radius: 3px;
@@ -45,7 +47,7 @@ export default {
 		}
 	}
 
-	/*estilo para os formularios*/
+	/* estilo para os formularios */
 	.form--input{
 		margin-top: 20px;
 	}
@@ -61,6 +63,11 @@ export default {
 	    transition: opacity .3s;
 	    width: 100%;
 	    box-sizing: border-box;
+
+	    &.erros{
+	    	background-color: #eadcda;
+    		border-color: #e74c3c;
+	    }
 	}
 
 	.form--button{
@@ -79,7 +86,7 @@ export default {
 	    transition: background-color .1s,opacity .1s;
 	    vertical-align: middle;
 
-	    /*classes para alinhamento dos botoes*/
+	    /* classes para alinhamento dos botoes */
 	    &.right{
 	    	float: right;
 	    }
@@ -88,7 +95,7 @@ export default {
 	    	float: left;
 	    }
 
-	    /*classes para os tipos de botoes*/
+	    /* classes para os tipos de botoes */
 	    &.text{
     	    color: #563dd2;
 		    background-color: transparent;
@@ -110,12 +117,35 @@ export default {
 		}
 	}
 
-	/*estilo especifico para o form do tipo 'block'*/
+	.form--input--warning{
+	    color: #c33e30;
+	    font-size: 14px;
+    	margin: 5px 0;
+    	text-transform: lowercase;
+    	display: inline-block;
+	}
+
+	/* estilo especifico para o form do tipo 'block' */
 	.form--input--block{
 		.form--input--label{
 			display: block;
 		    margin: 5px 0;
 		    text-align: left;
+		}
+	}
+
+	/* estrutrura para mensagens de error */
+	.form--errors{
+		border-radius: 3px;
+	    list-style: none;
+	    overflow: hidden;
+	    padding-left: 0;
+
+		.form--errors--error{
+			background-color: #e74c3c;
+		    border: 1px solid rgba(0,0,0,.05);
+		    padding: 10px;
+		    color: #fff;
 		}
 	}
 </style>
