@@ -19,3 +19,7 @@ export class Jwt {
     return Vue.http.post(config.getApiUrl('/auth'), { email, password })
   }
 }
+
+const Contact = Vue.resource(config.getApiUrl('/contacts'))
+
+export {Contact}
