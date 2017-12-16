@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import JwtToken from '../services/jwt-token'
-import {Contact} from '../services/resources'
+import {Contact, ContactSource} from '../services/resources'
 import localStorage from '../services/local-storage'
 
 Vue.use(Vuex)
@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     contacts: [],
+    contactSources: [],
     auth: {
       check: JwtToken.token != null,
       user: localStorage.getObject('user')
@@ -17,6 +18,9 @@ export default new Vuex.Store({
   mutations: {
     setContacts (state, contacts) {
       state.contacts = contacts
+    },
+    setContactSources (state, contactSources) {
+      state.contactSources = contactSources
     },
     authenticated (state) {
       state.auth.check = true
@@ -38,6 +42,11 @@ export default new Vuex.Store({
     loadContacts (context) {
       Contact.query().then(response => {
         context.commit('setContacts', response.data.contacts)
+      })
+    },
+    loadContactSources (context) {
+      ContactSource.query().then(response => {
+        context.commit('setContactSources', response.data)
       })
     }
   }

@@ -11,14 +11,19 @@
 				<div class="form--input">
 					<label for="email" class="form--input--label">E-mail</label>
 					<div class="form--input--wrapper">
-						<input id="email" type="email" name="email" placeholder="exemplo@email.com" v-model="user.email" v-validate="'required|email'" :class="{'form--input--field': true, 'erros': errors.has('email')}">
+						<input id="email" type="email" name="email" placeholder="exemplo@email.com" v-model="user.email" 
+						v-validate="'required|email'" 
+						:class="{'form--input--field': true, 'erros': errors.has('email')}">
 						<span v-show="errors.has('email')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('email') }}</span>
 					</div>
 				</div>
 				<div class="form--input">
 					<label for="password" class="form--input--label">Senha</label>
 					<div class="form--input--wrapper">
-						<input id="password" type="password" name="senha" placeholder="Digite sua senha aqui..." v-model="user.password" v-validate="'required|min:8'" :class="{'form--input--field': true, 'erros': errors.has('senha')}">
+						<input id="password" type="password" name="senha" placeholder="Digite sua senha aqui..." 
+						v-model="user.password" 
+						v-validate="'required|min:8'" 
+						:class="{'form--input--field': true, 'erros': errors.has('senha')}">
 						<span v-show="errors.has('senha')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('senha') }}</span>
 					</div>
 				</div>

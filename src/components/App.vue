@@ -42,12 +42,12 @@ export default {
 
 	*{
 		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
 	}
 
 	body{
 		background: #ecf0f1;
-		padding: 0;
-		margin: 0;
 	}
 
 	/* secao geral para todas as paginas da aplicacao */
@@ -106,6 +106,7 @@ export default {
 		    vertical-align: top;
 		}
 	}
+
 	/* caixas que separam o conteudo em secoes */
 	.widget {
 		background-color: #fff;
@@ -141,12 +142,30 @@ export default {
 	    padding: 10px;
 	    transition: opacity .3s;
 	    width: 100%;
+	    max-width: 430px;
 	    box-sizing: border-box;
 
 	    &.erros{
 	    	background-color: #eadcda;
     		border-color: #e74c3c;
 	    }
+	}
+
+		textarea.form--input--field{
+			min-height: 85px;
+		}
+
+	.form--input--wrapper{
+		width: 100%;
+	}
+
+	.form--input--label{
+	    font-size: 14px;
+	    margin: 10px 0;
+	    position: relative;
+	    text-align: right;
+	    z-index: 1;
+	    display: block;
 	}
 
 	.form--button{
@@ -180,6 +199,11 @@ export default {
     	    color: #563dd2;
 		    background-color: transparent;
 		    border-color: transparent;
+
+		    &:hover,
+		    &:active{
+		    	background:transparent;
+		    }
 	    }
 
 	    &.block{
@@ -190,6 +214,18 @@ export default {
 	    &.paddingless{
 	    	padding-left: 0;
 	    	padding-right: 0;
+	    }
+
+	    /* estilo de cores */
+	    &.white{
+	    	background-color: #f9f9f9;
+	    	border: 1px solid rgba(0,0,0,.1);
+	    	color: #000;
+
+	    	&:hover,
+		    &:active{
+		    	background: #fff;
+		    }	
 	    }
 
 	    /* estilo para hover e active status */
@@ -224,9 +260,10 @@ export default {
 	.form--input--warning{
 	    color: #c33e30;
 	    font-size: 14px;
-    	margin: 5px 0;
+    	margin: 5px;
     	text-transform: lowercase;
     	display: inline-block;
+    	vertical-align: top;
 	}
 
 	/* estilo especifico para o form do tipo 'block' */
@@ -250,6 +287,41 @@ export default {
 		    border: 1px solid rgba(0,0,0,.05);
 		    padding: 10px;
 		    color: #fff;
+		}
+	}
+
+	/* sistema simples de grid para estruturar o layout */
+	.grid-row{
+		&:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+
+		.col-2{
+			width: 16.666666%;
+		}
+
+		.col-4{
+			width: 33.333333%;
+		}
+
+		.col-6{
+			width: 50%;
+		}
+
+		.col-10{
+			width: 83.333333%;
+		}
+
+		.col{
+			float: left;
+			padding: 0 15px;
+			min-height: 1px;
+
+			@media all and (max-width: 768px){
+				width: 100%;
+			}
 		}
 	}
 </style>
