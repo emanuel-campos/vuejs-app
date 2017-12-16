@@ -6,6 +6,7 @@ import UserLogoutComponent from '../components/users/UserLogout.vue'
 import HomeComponent from '../components/Home.vue'
 import ContactListComponent from '../components/contacts/ContactList.vue'
 import ContactNewComponent from '../components/contacts/ContactNew.vue'
+import ContactViewComponent from '../components/contacts/ContactView.vue'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,15 @@ const router = new VueRouter({
       name: 'contact-new',
       path: '/contacts/new',
       component: ContactNewComponent,
+      meta: {
+        class: 'contacts',
+        auth: true
+      }
+    },
+    {
+      name: 'contact-view',
+      path: '/contacts/:id',
+      component: ContactViewComponent,
       meta: {
         class: 'contacts',
         auth: true

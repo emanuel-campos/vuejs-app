@@ -20,7 +20,7 @@ export class Jwt {
   }
 }
 
-const Contact = Vue.resource(config.getApiUrl('/contacts'))
+const Contact = Vue.resource(config.getApiUrl('/contacts{/id}'))
 const ContactSource = Vue.resource(config.getApiUrl('/contact_sources'))
 
 export {Contact, ContactSource}

@@ -4,10 +4,12 @@
 			<ul v-show="error.status" class="form--errors">
 				<li class="form--errors--error">{{ error.message }}</li>
 			</ul>
+			<!-- BEGIN formulario de login -->
 			<form class="users--form form--input--block widget" @submit.prevent="login()">
 				<div class="widget--title">
 					<i class="icon fa fa-unlock-alt"></i> App | Entrar
 				</div>
+				<!-- BEGIN campo de email -->
 				<div class="form--input">
 					<label for="email" class="form--input--label">E-mail</label>
 					<div class="form--input--wrapper">
@@ -17,6 +19,9 @@
 						<span v-show="errors.has('email')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('email') }}</span>
 					</div>
 				</div>
+				<!-- END campo de email -->
+
+				<!-- BEGIN campo de senha -->
 				<div class="form--input">
 					<label for="password" class="form--input--label">Senha</label>
 					<div class="form--input--wrapper">
@@ -27,6 +32,8 @@
 						<span v-show="errors.has('senha')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('senha') }}</span>
 					</div>
 				</div>
+				<!-- END campo de senha -->
+
 				<div class="form--buttons left">
 					<button class="form--button">
 						<i v-show="lazyLoading" class="fa fa-spinner form--button--loading"></i> 
@@ -35,11 +42,13 @@
 					<a class="form--button right text paddingless">Não é cadastrado?</a>
 				</div>
 			</form>
+			<!-- END formulario de login -->
 		</section>
 	</main>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   data () {
     return {
@@ -58,12 +67,26 @@ export default {
     login () {
       this.$validator.validateAll().then((result) => {
         if (result) {
+          // define como 'true' para exibir "itens de carregamento"
           this.lazyLoading = true
+
+          /**
+           * dispara a action login da store
+           * essa action retorna uma promessa
+           */
           this.$store.dispatch('login', this.user)
             .then((response) => {
+              /**
+               * caso o usuario seja autenticado então
+               * ele deve ser redirecionado para a lista de contatos
+               */
               this.$router.push({name: 'contact-list'})
             })
             .catch((responseError) => {
+              /**
+               * Caso a promessa falhe, uma mensagem de 
+               * erro é definida para ser exibida ao usuario
+               */
               this.lazyLoading = false
               this.error.status = true
               this.error.message = 'Login ou senha inválidos'

@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     contacts: [],
     contactSources: [],
+    contact: {},
     auth: {
       check: JwtToken.token != null,
       user: localStorage.getObject('user')
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     setContactSources (state, contactSources) {
       state.contactSources = contactSources
+    },
+    setContact (state, contact) {
+      state.contact = contact
     },
     authenticated (state) {
       state.auth.check = true
@@ -47,6 +51,14 @@ export default new Vuex.Store({
     loadContactSources (context) {
       ContactSource.query().then(response => {
         context.commit('setContactSources', response.data)
+      })
+    },
+    newContact (context, contact) {
+      return Contact.save(contact)
+    },
+    loadContact (context, contactId) {
+      return Contact.get({id: contactId}).then(response => {
+        context.commit('setContact', response.data)
       })
     }
   }

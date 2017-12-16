@@ -12,6 +12,8 @@
 							<i class="icon fa fa-user"></i>
 							Dados do contato
 						</div>
+
+						<!-- BEGIN campo de nome -->
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2">
@@ -28,6 +30,9 @@
 								</div>
 							</div>
 						</div>
+						<!-- END campo de nome -->
+
+						<!-- BEGIN campo de origem -->
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2">
@@ -43,6 +48,9 @@
 								</div>
 							</div>
 						</div>
+						<!-- END campo de origem -->
+
+						<!-- BEGIN campo sobre o cliente -->
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2">
@@ -55,6 +63,7 @@
 								</div>
 							</div>
 						</div>
+						<!-- END campo sobre o cliente -->
 					</div>
 					<!-- END widget dados do contato -->
 
@@ -64,6 +73,8 @@
 							<i class="icon fa fa-phone"></i>
 							Telefones
 						</div>
+
+						<!-- BEGIN campo de telefones -->
 						<div class="form--input" v-for="(phone, index) in contact.phones">
 							<div class="grid-row">
 								<div class="col col-2">
@@ -71,11 +82,18 @@
 								</div>
 								<div class="col col-10">
 									<div class="form--input--wrapper">
-										<input class="form--input--field" id="telefone" placeholder="(00) 00000-0000" name="phone[]" v-model="contact.phones[index]">
+										<the-mask id="telefone" placeholder="(00) 00000-0000" name="telefone" 
+										v-model="contact.phones[index]"
+										v-validate="'required'" 
+										:mask="['(##) ####-####', '(##) #####-####']"
+										:class="{'form--input--field': true, 'erros': errors.has('telefone')}"></the-mask>
+										<span v-show="errors.has('telefone')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('telefone') }}</span>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- END campo de telefones -->
+
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2"></div>
@@ -95,6 +113,8 @@
 							<i class="icon fa fa-envelope"></i>
 							E-mails
 						</div>
+
+						<!-- BEGIN campo de emails -->
 						<div class="form--input" v-for="(email, index) in contact.emails">
 							<div class="grid-row">
 								<div class="col col-2">
@@ -102,11 +122,13 @@
 								</div>
 								<div class="col col-10">
 									<div class="form--input--wrapper">
-										<input class="form--input--field" id="telefone" placeholder="exemplo@email.com" name="emails[]" v-model="contact.emails[index]">
+										<input class="form--input--field" id="telefone" placeholder="exemplo@email.com" name="emails[]" v-model="contact.emails[index].address">
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- END campo de emails -->
+
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2"></div>
@@ -134,6 +156,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   data () {
     return {
@@ -142,7 +165,11 @@ export default {
         background: '',
         contact_source_id: '',
         phones: [''],
-        emails: ['']
+        emails: [
+          {
+            address: ''
+          }
+        ]
       },
       lazyLoading: false
     }
@@ -155,19 +182,68 @@ export default {
       this.contact.emails.push('')
     },
     saveContact () {
+      // o formulario deve passar pela validação para continuar
       this.$validator.validateAll().then((result) => {
         if (result) {
+          // define como 'true' para exibir "itens de carregamento" 
           this.lazyLoading = true
+
+          /** 
+           * prepara os numeros de telefone no formato correto para a API
+           * Exemplo: 
+           * [
+           *  {
+	       *    code: 84,
+	       *    number: 999281870
+           *  }
+           * ]
+           */
+          this.contact.phones = this.contact.phones.map(function (number) {
+            return {
+              code: number.substring(0, 2),
+              number: number.slice(2)
+            }
+          })
+
+          /** 
+           * dispara uma action do store que deve enviar os dados para a API
+           * essa action deve retornar uma promessa, podendo ser usada para validações
+           */
+          this.$store.dispatch('newContact', this.contact)
+            .then((response) => {
+              /** 
+               * caso o contato tenha sido enviado com sucesso e salvo
+               * redireciona o usuario para a lista de contatos
+               */
+              this.$router.push({name: 'contact-list'})
+            })
+            .catch((responseError) => {
+              /**
+               * se ocorrer algum erro na requisição a promessa dispara o catch
+               * assim uma mensagem de erro aparece avisando o usuario
+               */
+              this.lazyLoading = false
+              this.error.status = true
+              this.error.message = 'Erro ao cadastrar, atualize a página e tente novamente'
+            })
         }
       })
     }
   },
   computed: {
     contactSources () {
+      /**
+       * acessa o state na store e retorna a lista contactSources
+       * carregada com a action loadContactSources
+       */
       return this.$store.state.contactSources
     }
   },
   mounted () {
+  	/**
+  	 * dispara a action loadContactSources para
+  	 * carregar a lista contactSources no state do store
+  	 */
     this.$store.dispatch('loadContactSources')
   }
 }
