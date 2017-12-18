@@ -1,0 +1,162 @@
+/* estilo para os formularios */
+.form--input{
+	margin-top: 20px;
+}
+
+.form--input--field{
+	background-color: #ecf0f1;
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 3px;
+    display: inline-block;
+    font: $defaultFont;
+    font-size: 14px;
+    padding: 10px;
+    transition: opacity .3s;
+    width: 100%;
+    max-width: 430px;
+    box-sizing: border-box;
+
+    &.erros{
+    	background-color: #eadcda;
+		border-color: #e74c3c;
+    }
+}
+
+	textarea.form--input--field{
+		min-height: 85px;
+	}
+
+.form--input--wrapper{
+	width: 100%;
+}
+
+.form--input--label{
+    font-size: 14px;
+    margin: 10px 0;
+    position: relative;
+    text-align: right;
+    z-index: 1;
+    display: block;
+}
+
+.form--button{
+    appearance: none;
+    background-color: #2b84d2;
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font: $defaultFont;
+    overflow: hidden;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    transition: background-color .1s,opacity .1s;
+    vertical-align: middle;
+    text-decoration: none;
+
+    /* classes para alinhamento dos botoes */
+    &.right{
+    	float: right;
+    }
+
+    &.left{
+    	float: left;
+    }
+
+    /* classes para os tipos de botoes */
+    &.text{
+	    color: #563dd2;
+	    background-color: transparent;
+	    border-color: transparent;
+
+	    &:hover,
+	    &:active{
+	    	background:transparent;
+	    }
+    }
+
+    &.block{
+    	display: block;
+    	width: 100%;
+    }
+
+    &.paddingless{
+    	padding-left: 0;
+    	padding-right: 0;
+    }
+
+    /* estilo de cores */
+    &.white{
+    	background-color: #f9f9f9;
+    	border: 1px solid rgba(0,0,0,.1);
+    	color: #000;
+
+    	&:hover,
+	    &:active{
+	    	background: #fff;
+	    }	
+    }
+
+    /* estilo para hover e active status */
+    &:hover,
+    &:active{
+    	background: #563dd2;
+    }
+}
+
+.form--buttons{
+	margin: 40px 0 0;
+	text-align: center;
+
+	&.left{
+		text-align: left;
+	}
+}
+
+.form--button--loading{
+	animation: icon-spin 2s infinite linear;
+}
+
+@keyframes icon-spin{
+	from{
+	    transform: rotate(0deg);
+	}
+	to{
+	    transform: rotate(359deg)
+	}
+}
+
+.form--input--warning{
+    color: #c33e30;
+    font-size: 14px;
+	margin: 5px;
+	text-transform: lowercase;
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* estilo especifico para o form do tipo 'block' */
+.form--input--block{
+	.form--input--label{
+		display: block;
+	    margin: 5px 0;
+	    text-align: left;
+	}
+}
+
+/* estrutrura para mensagens de error */
+.form--errors{
+	border-radius: 3px;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 0;
+
+	.form--errors--error{
+		background-color: #e74c3c;
+	    border: 1px solid rgba(0,0,0,.05);
+	    padding: 10px;
+	    color: #fff;
+	}
+}

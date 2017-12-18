@@ -1,0 +1,26 @@
+/* caixas que separam o conteudo em secoes */
+.widget {
+	background-color: #fff;
+    border-radius: 3px;
+    margin: 20px auto;
+    padding: 20px;
+
+    .widget--title {
+	    border-bottom: 1px solid #ecf0f1;
+	    border-radius: 0;
+	    margin: -20px -20px 20px;
+	    overflow: hidden;
+	    padding: 10px 20px;
+
+	    .icon {
+	    	margin-right: 10px;
+	    }
+	}
+
+	.widget--separator{
+	    background-color: #ecf0f1;
+	    display: block;
+	    height: 1px;
+	    margin: 20px -20px;
+	}
+}

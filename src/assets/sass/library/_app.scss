@@ -1,0 +1,56 @@
+/* secao geral para todas as paginas da aplicacao */
+.app {
+	color: #000;
+	font: $defaultFont;
+	border-left: 240px solid #fff;
+
+	.app--sidebar{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 240px;
+		padding: 20px;
+		background-color: #fff;
+		min-height: 100%;
+
+		a{
+			color: #000;
+		}
+
+		& + .app--main{
+			padding: 20px; 
+		}
+
+		.app--sidebar--user--info{
+			display: block;
+			margin-bottom: 20px;
+		}
+
+		.form--button{
+			color: #fff;
+		    margin-bottom: 20px;
+		}
+	}
+
+	.app--header{
+		background-color: #fff;
+		color: #000;
+		margin: -20px -20px 20px;
+
+		.app--header--title{
+			font-size: 22.4px;
+		    font-weight: 400;
+		    display: inline-block;
+		    line-height: 1;
+		    padding: 20px;
+		    margin: 0;
+		}
+	}
+
+	.app--main{
+		margin: 0 auto;
+	    min-height: 100%;
+	    position: relative;
+	    vertical-align: top;
+	}
+}
