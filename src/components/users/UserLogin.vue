@@ -35,7 +35,7 @@
 				<!-- END campo de senha -->
 
 				<div class="form--buttons left">
-					<button class="form--button">
+					<button id="fazer-login" class="form--button">
 						<i v-show="lazyLoading" class="fa fa-spinner form--button--loading"></i> 
 						Fazer Login
 					</button>
@@ -78,9 +78,9 @@ export default {
             .then((response) => {
               /**
                * caso o usuario seja autenticado então
-               * ele deve ser redirecionado para a lista de contatos
+               * ele deve ser redirecionado para a Página Inicial
                */
-              this.$router.push({name: 'contact-list'})
+              this.$router.push({name: 'home'})
             })
             .catch((responseError) => {
               /**

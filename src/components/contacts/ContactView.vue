@@ -12,9 +12,10 @@
 				<div>
 					<div class="contact">
 						<p v-if="contact.background">{{ contact.background }}</p>
-						<div class="widget--separator" v-if="contact.background"></div>
+						<div class="widget--separator" v-if="contact.background && contact.contact_source"></div>
 						
-						<span class="contact--list--header">Origem</span>
+						<span v-if="contact.contact_source" class="contact--list--header">Origem</span>
+						<p v-if="contact.contact_source">{{ contact.contact_source.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -33,7 +34,7 @@
 						</ul>
 
 						<span class="contact--list--header" v-if="contact.emails.length">E-mails</span>
-						<ul class="contact--list" v-if="contact.emails">
+						<ul class="contact--list" v-if="contact.emails.length">
 							<li v-for="email in contact.emails">
 							{{ email.address }}
 							</li>

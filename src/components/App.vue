@@ -11,7 +11,7 @@
 	  		<i class="fa fa-list"></i>
 	  		Lista de Contatos
   		</router-link>
-	  	<router-link class="form--button block" :to="{name: 'contact-new'}">
+	  	<router-link id="adicionar-contato" class="form--button block" :to="{name: 'contact-new'}">
 	  		<i class="fa fa-plus"></i>
 	  		Adicionar Contato
   		</router-link>

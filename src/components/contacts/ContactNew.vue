@@ -74,32 +74,34 @@
 							Telefones
 						</div>
 
-						<!-- BEGIN campo de telefones -->
-						<div class="form--input" v-for="(phone, index) in contact.phones">
-							<div class="grid-row">
-								<div class="col col-2">
-									<label for="telefone" class="form--input--label">Telefone</label>
-								</div>
-								<div class="col col-10">
-									<div class="form--input--wrapper">
-										<the-mask id="telefone" placeholder="(00) 00000-0000" name="telefone" 
-										v-model="contact.phones[index]"
-										v-validate="'required'" 
-										:mask="['(##) ####-####', '(##) #####-####']"
-										:class="{'form--input--field': true, 'erros': errors.has('telefone')}"></the-mask>
-										<span v-show="errors.has('telefone')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('telefone') }}</span>
+						<!-- BEGIN lista de telefones -->
+						<div id="phone-list" class="form--input--list">
+							<div class="form--input" v-for="(phone, index) in contact.phones">
+								<div class="grid-row">
+									<div class="col col-2">
+										<label for="telefone" class="form--input--label">Telefone</label>
+									</div>
+									<div class="col col-10">
+										<div class="form--input--wrapper">
+											<the-mask id="telefone" placeholder="(00) 00000-0000" name="telefone" 
+											v-model="contact.phones[index]"
+											v-validate="'required'" 
+											:mask="['(##) ####-####', '(##) #####-####']"
+											:class="{'form--input--field': true, 'erros': errors.has('telefone')}"></the-mask>
+											<span v-show="errors.has('telefone')" class="form--input--warning"><i class="fa fa-warning"></i> {{ errors.first('telefone') }}</span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- END campo de telefones -->
+						<!-- END lista de telefones -->
 
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2"></div>
 								<div class="col col-10">
 									<div class="form--input--wrapper">
-										<a class="form--button text paddingless" @click="addPhone()">+ Adicionar um telefone</a>
+										<a id="adicionar-telefone" class="form--button text paddingless" @click="addPhone()">+ Adicionar um telefone</a>
 									</div>
 								</div>
 							</div>
@@ -114,27 +116,29 @@
 							E-mails
 						</div>
 
-						<!-- BEGIN campo de emails -->
-						<div class="form--input" v-for="(email, index) in contact.emails">
-							<div class="grid-row">
-								<div class="col col-2">
-									<label for="telefone" class="form--input--label">E-mail</label>
-								</div>
-								<div class="col col-10">
-									<div class="form--input--wrapper">
-										<input class="form--input--field" id="telefone" placeholder="exemplo@email.com" name="emails[]" v-model="contact.emails[index].address">
+						<!-- BEGIN lista de emails -->
+						<div id="email-list" class="form--input--list">
+							<div class="form--input" v-for="(email, index) in contact.emails">
+								<div class="grid-row">
+									<div class="col col-2">
+										<label for="telefone" class="form--input--label">E-mail</label>
+									</div>
+									<div class="col col-10">
+										<div class="form--input--wrapper">
+											<input class="form--input--field" id="telefone" placeholder="exemplo@email.com" name="emails[]" v-model="contact.emails[index]">
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- END campo de emails -->
+						<!-- END lista de emails -->
 
 						<div class="form--input">
 							<div class="grid-row">
 								<div class="col col-2"></div>
 								<div class="col col-10">
 									<div class="form--input--wrapper">
-										<a class="form--button text paddingless" @click="addEmail()">+ Adicionar um e-mail</a>
+										<a id="adicionar-email" class="form--button text paddingless" @click="addEmail()">+ Adicionar um e-mail</a>
 									</div>
 								</div>
 							</div>
@@ -143,7 +147,7 @@
 					<!-- END widget emails -->
 
 					<div class="form--buttons">
-						<button type="submit" class="form--button">
+						<button type="submit" id="salvar-contato" class="form--button">
 							<i v-show="lazyLoading" class="fa fa-spinner form--button--loading"></i>
 							Salvar Contato
 						</button>
@@ -165,11 +169,7 @@ export default {
         background: '',
         contact_source_id: '',
         phones: [''],
-        emails: [
-          {
-            address: ''
-          }
-        ]
+        emails: ['']
       },
       lazyLoading: false
     }
@@ -202,6 +202,21 @@ export default {
             return {
               code: number.substring(0, 2),
               number: number.slice(2)
+            }
+          })
+
+          /** 
+           * prepara os emails no formato correto para a API
+           * Exemplo: 
+           * [
+           *  {
+	       *    address: exemplo@site.com
+           *  }
+           * ]
+           */
+          this.contact.emails = this.contact.emails.map(function (email) {
+            return {
+              address: email
             }
           })
 
@@ -249,6 +264,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+	
 </style>

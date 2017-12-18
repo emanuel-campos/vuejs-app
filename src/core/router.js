@@ -17,7 +17,7 @@ const router = new VueRouter({
       path: '/',
       component: HomeComponent,
       meta: {
-        class: 'login',
+        class: 'home',
         auth: true
       }
     },
